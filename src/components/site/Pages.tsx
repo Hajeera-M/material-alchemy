@@ -1098,10 +1098,10 @@ export function ContactPage() {
             </div>
             <div className="mt-10 space-y-4 border-t border-line pt-6 text-sm text-mute">
               <p className="flex items-center gap-3">
-                <Mail size={15} className="text-primary" /> hello@acespaces.example
+                <Mail size={15} className="text-primary" /> Email details to be confirmed
               </p>
               <p className="flex items-center gap-3">
-                <MapPin size={15} className="text-primary" /> India / projects considered globally
+                <MapPin size={15} className="text-primary" /> Studio location to be confirmed
               </p>
             </div>
           </aside>

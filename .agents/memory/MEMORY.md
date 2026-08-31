@@ -1,0 +1,1 @@
+- [Cloudflare Nitro preview](preview-serving.md) — local Replit preview needs a static-asset bridge before delegating requests to the generated SSR handler.
