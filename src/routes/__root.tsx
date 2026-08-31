@@ -72,26 +72,66 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://acespaces.example/#organization",
+      name: "Ace Spaces",
+      description:
+        "Ace Spaces is an architectural surfaces practice working in premium solid surface — material solutions, bespoke fabrication, design support, and installation for residential, hospitality, commercial, retail, healthcare and institutional interiors.",
+      brand: { "@id": "https://acespaces.example/#coro" },
+      knowsAbout: [
+        "Solid surface",
+        "Solid surface fabrication",
+        "Architectural surfaces",
+        "Thermoforming",
+        "Seamless surfaces",
+        "Custom surface fabrication",
+      ],
+    },
+    {
+      "@type": "Brand",
+      "@id": "https://acespaces.example/#coro",
+      name: "Coro Collective",
+      description:
+        "Coro Collective is the specialist brand of Ace Spaces, focused on bespoke architectural surfaces, material exploration and designer-led fabrication.",
+      parentOrganization: { "@id": "https://acespaces.example/#organization" },
+    },
+  ],
+};
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Ace Spaces — Architectural Solid Surfaces & Fabrication" },
+      {
+        name: "description",
+        content:
+          "Ace Spaces turns premium solid-surface material into seamless architecture. Coro Collective is its specialist brand for bespoke fabrication.",
+      },
+      { property: "og:site_name", content: "Ace Spaces" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(organizationJsonLd),
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -119,8 +159,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <Header />
+      <main>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </main>
+      <Footer />
     </QueryClientProvider>
   );
 }
