@@ -5,9 +5,7 @@ export function Eyebrow({ children }: { children: ReactNode }) {
 }
 
 export function Shell({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return (
-    <div className={`mx-auto max-w-[1440px] px-6 lg:px-12 ${className}`}>{children}</div>
-  );
+  return <div className={`mx-auto max-w-[1440px] px-6 lg:px-12 ${className}`}>{children}</div>;
 }
 
 export function Section({
@@ -24,7 +22,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`${bordered ? "border-t border-line" : ""} ${panel ? "bg-panel" : ""}`}
+      className={`${bordered ? "border-t border-line" : ""} ${panel ? "bg-panel" : ""} section-reveal`}
     >
       <Shell className="py-16 lg:py-24">{children}</Shell>
     </section>

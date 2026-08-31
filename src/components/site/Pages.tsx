@@ -30,9 +30,9 @@ import sectorReception from "@/assets/sector-reception.jpg";
 import { ContentNote, Eyebrow, PageHeader, Section, Shell } from "./Editorial";
 
 const buttonPrimary =
-  "inline-flex items-center gap-3 bg-primary px-5 py-3 label text-primary-foreground transition-transform hover:-translate-y-0.5";
+  "motion-button inline-flex items-center gap-3 bg-primary px-5 py-3 label text-primary-foreground";
 const buttonQuiet =
-  "inline-flex items-center gap-3 border border-line px-5 py-3 label text-stone transition-colors hover:border-primary hover:text-primary";
+  "motion-button inline-flex items-center gap-3 border border-line px-5 py-3 label text-stone";
 
 function ArrowLink({ to, children }: { to: string; children: ReactNode }) {
   return (
@@ -58,10 +58,14 @@ function ImagePanel({
   caption?: string;
 }) {
   return (
-    <figure className={`relative overflow-hidden bg-panel ${className}`}>
-      <img src={src} alt={alt} className="h-full w-full object-cover" />
+    <figure className={`group relative overflow-hidden bg-panel ${className}`}>
+      <img
+        src={src}
+        alt={alt}
+        className="h-full w-full object-cover transition-transform duration-1000 ease-material group-hover:scale-[1.045]"
+      />
       {caption ? (
-        <figcaption className="absolute bottom-0 left-0 bg-background/80 px-3 py-2 label text-mute backdrop-blur-sm">
+        <figcaption className="absolute bottom-0 left-0 bg-background/80 px-3 py-2 label text-mute backdrop-blur-sm transition-transform duration-700 group-hover:translate-y-0.5">
           {caption}
         </figcaption>
       ) : null}
@@ -157,7 +161,7 @@ export function HomePage() {
         <Statement eyebrow="What we do">
           A complete material practice, from first drawing to final edge.
         </Statement>
-        <div className="mt-12 grid gap-px border border-line bg-line md:grid-cols-3">
+        <div className="motion-grid mt-12 grid gap-px border border-line bg-line md:grid-cols-3">
           {[
             [
               "01",
@@ -175,7 +179,7 @@ export function HomePage() {
               "Early technical conversations that make ambitious surfaces buildable.",
             ],
           ].map(([index, title, body]) => (
-            <div key={index} className="bg-panel p-6 lg:p-8">
+            <div key={index} className="motion-card bg-panel p-6 lg:p-8">
               <p className="label text-primary">{index}</p>
               <h3 className="mt-16 text-2xl text-stone">{title}</h3>
               <p className="mt-4 text-sm leading-relaxed text-mute">{body}</p>
@@ -274,9 +278,12 @@ export function MaterialsPage() {
             ))}
           </div>
         </div>
-        <div className="mt-10 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+        <div
+          key={collection}
+          className="motion-grid mt-10 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4"
+        >
           {visibleMaterials.map((material, index) => (
-            <article key={material.slug} className="group bg-background p-5">
+            <article key={material.slug} className="motion-card group bg-background p-5">
               <div
                 className={`aspect-[4/3] ${
                   index % 4 === 0
@@ -319,9 +326,9 @@ export function MaterialsPage() {
         <Statement eyebrow="Why solid surface">
           A material that can be detailed as one continuous thought.
         </Statement>
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="motion-grid mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {characteristics.map((item, index) => (
-            <article key={item.title} className="border-t border-line pt-5">
+            <article key={item.title} className="motion-card border-t border-line pt-5">
               <p className="label text-primary">0{index + 1}</p>
               <h3 className="mt-8 text-2xl text-stone">{item.title}</h3>
               <p className="mt-4 text-sm leading-relaxed text-mute">{item.body}</p>
@@ -364,9 +371,9 @@ export function FabricationPage() {
         </div>
       </Section>
       <Section>
-        <div className="grid gap-px border border-line bg-line md:grid-cols-2 lg:grid-cols-3">
+        <div className="motion-grid grid gap-px border border-line bg-line md:grid-cols-2 lg:grid-cols-3">
           {fabrication.map((item) => (
-            <article key={item.index} className="bg-background p-6 lg:p-8">
+            <article key={item.index} className="motion-card bg-background p-6 lg:p-8">
               <div className="flex items-start justify-between">
                 <span className="label text-primary">{item.index}</span>
                 <span className="label text-mute">{item.tag}</span>
@@ -386,9 +393,9 @@ export function FabricationPage() {
         <Statement eyebrow="The route from idea to finished surface">
           A considered process protects the detail.
         </Statement>
-        <div className="mt-12 grid gap-x-8 gap-y-10 md:grid-cols-3">
+        <div className="motion-grid mt-12 grid gap-x-8 gap-y-10 md:grid-cols-3">
           {process.map((item) => (
-            <article key={item.index} className="border-t border-line pt-5">
+            <article key={item.index} className="motion-card border-t border-line pt-5">
               <span className="label text-primary">{item.index}</span>
               <h3 className="mt-8 text-2xl text-stone">{item.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-mute">{item.body}</p>
@@ -433,9 +440,9 @@ export function ApplicationsPage() {
         </div>
       </Section>
       <Section panel>
-        <div className="grid gap-px border border-line bg-line md:grid-cols-2 lg:grid-cols-3">
+        <div className="motion-grid grid gap-px border border-line bg-line md:grid-cols-2 lg:grid-cols-3">
           {sectors.map((sector) => (
-            <article key={sector.slug} className="bg-background p-6 lg:p-8">
+            <article key={sector.slug} className="motion-card bg-background p-6 lg:p-8">
               <div className="flex justify-between">
                 <span className="label text-primary">{sector.index}</span>
                 <ArrowDownRight size={18} className="text-primary" />
@@ -476,7 +483,7 @@ function ProjectCard({ project }: { project: Project }) {
     <Link
       to="/projects/$slug"
       params={{ slug: project.slug }}
-      className="group block border-t border-line pt-5 transition-colors hover:border-primary"
+      className="motion-card group block border-t border-line pt-5 transition-colors hover:border-primary"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -536,7 +543,7 @@ export function ProjectsPage() {
             ))}
           </div>
         </div>
-        <div className="mt-14 grid gap-x-10 gap-y-14 md:grid-cols-2">
+        <div key={sector} className="motion-grid mt-14 grid gap-x-10 gap-y-14 md:grid-cols-2">
           {visibleProjects.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
@@ -671,10 +678,10 @@ export function CoroCollectivePage() {
         <Statement eyebrow="A space for material curiosity">
           Good surfaces do more than close a detail. They change how a space is understood.
         </Statement>
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="motion-grid mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {["Surface studies", "Designer collaborations", "Bespoke forms", "Material stories"].map(
             (item, index) => (
-              <div key={item} className="border-t border-line pt-5">
+              <div key={item} className="motion-card border-t border-line pt-5">
                 <span className="label text-primary">0{index + 1}</span>
                 <h3 className="mt-12 text-2xl text-stone">{item}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-mute">
@@ -731,7 +738,7 @@ export function AboutPage() {
         </div>
       </Section>
       <Section>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="motion-grid grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {[
             [
               "Material first",
@@ -750,7 +757,7 @@ export function AboutPage() {
               "The best result comes from a continuous conversation across design and execution.",
             ],
           ].map(([title, body], index) => (
-            <article key={title} className="border-t border-line pt-5">
+            <article key={title} className="motion-card border-t border-line pt-5">
               <span className="label text-primary">0{index + 1}</span>
               <h2 className="mt-12 text-2xl text-stone">{title}</h2>
               <p className="mt-4 text-sm leading-relaxed text-mute">{body}</p>
@@ -775,7 +782,7 @@ export function AboutPage() {
             ].map((item) => (
               <div
                 key={item}
-                className="flex items-center justify-between border-b border-line pb-4"
+                className="motion-card flex items-center justify-between border-b border-line pb-4"
               >
                 <span className="text-lg text-stone">{item}</span>
                 <ChevronRight size={18} className="text-primary" />
@@ -797,9 +804,9 @@ export function ResourcesPage() {
         lede="A professional resource area for architects, designers, contractors and fabricators. Request the current document set for the material and project you are working on."
       />
       <Section bordered={false} panel>
-        <div className="grid gap-px border border-line bg-line md:grid-cols-2">
+        <div className="motion-grid grid gap-px border border-line bg-line md:grid-cols-2">
           {resources.map((resource, index) => (
-            <article key={resource.title} className="group bg-background p-6 lg:p-8">
+            <article key={resource.title} className="motion-card group bg-background p-6 lg:p-8">
               <div className="flex items-start justify-between">
                 <span className="label text-primary">0{index + 1}</span>
                 <Download
@@ -881,13 +888,13 @@ export function JournalPage() {
             ))}
           </div>
         </div>
-        <div className="mt-12 grid gap-10 lg:grid-cols-2">
+        <div key={category} className="motion-grid mt-12 grid gap-10 lg:grid-cols-2">
           {visibleEntries.map((entry, index) => (
             <Link
               key={entry.slug}
               to="/journal/$slug"
               params={{ slug: entry.slug }}
-              className="group border-t border-line pt-5 transition-colors hover:border-primary"
+              className="motion-card group border-t border-line pt-5 transition-colors hover:border-primary"
             >
               <div className="flex items-center justify-between">
                 <span className="label text-primary">{entry.category}</span>
